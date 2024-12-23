@@ -1,8 +1,16 @@
-FROM debian:buster
+FROM	debian:buster
 
+RUN		mkdir -p /var/run/nginx
 
-RUN  apt update && apt upgrade -y && apt install -y \
-					vim			\
-					curl		\
-					sudo
-RUN apt install nginx -y
+COPY	tools/setUpNginx.sh .
+
+RUN		chmod +x setUpNginx.sh
+
+RUN		bash setUpNginx.sh
+
+COPY	conf/nginx.conf /etc/nginx/nginx.conf
+RUN		mkdir -p /var/run/nginx
+RUN		chown -R www-data:www-data /var/www/html
+RUN		chmod -R 775 /var/www/html
+
+CMD		["nginx" , "-g" ,"daemon off;"]
