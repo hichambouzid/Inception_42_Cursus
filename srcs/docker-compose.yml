@@ -1,3 +1,7 @@
+networks:
+  inception:
+    driver: bridge
+
 services:
   mariadb:
     build: ./requirements/mariadb/.
@@ -6,6 +10,10 @@ services:
       - .env
     networks:
       - inception
+    volumes:
+      - mariadb:/var/lib/mysql
+    expose:
+      - 3306
   wordpress:
     build: ./requirements/wordpress/.
     init: true
@@ -15,7 +23,12 @@ services:
       - mariadb
     networks:
       - inception
+    volumes:
+      - wordPress:/var/www/wordPress
+    expose:
+      - 9000
 
-networks:
-  inception:
-    driver: bridge
+
+volumes:
+  wordPress:
+  mariadb:

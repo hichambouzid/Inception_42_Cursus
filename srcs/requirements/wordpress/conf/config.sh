@@ -2,12 +2,13 @@
 
 
 #Running wordpess as root
-wp core download  --allow-root
+# wp core download  --allow-root
 
 # wp-config-sample.php it's just a template provided by wordpess .
+sleep 10
 mv   /var/www/wordpress/wp-config-sample.php  /var/www/wordpress/wp-config.php
 
-# cd /var/www/wordpress/
+cd /var/www/wordpress/
 sed -i "s/database_name_here/$DB_NAME/" /var/www/wordpress/wp-config.php
 sed -i "s/username_here/$DB_USER/" /var/www/wordpress/wp-config.php
 sed -i "s/password_here/$DB_PASS/" /var/www/wordpress/wp-config.php
@@ -34,15 +35,15 @@ wp user create \
     --allow-root
 
 # install theme to use in wordpress (genaratepress or astra .....)
-wp theme install \
-    generatepress \
-    --allow-root
+# wp theme install \
+#     generatepress \
+#     --allow-root
 
 cd /
 
 #there to ways to make fpm listen to upcoming request
 
 echo "listen = 9000" >> /etc/php/7.3/fpm/php-fpm.conf
-mkdir  /run/php
+mkdir -p /run/php
 
 php-fpm7.3 -F
