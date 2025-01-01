@@ -10,7 +10,7 @@ mv   /var/www/wordpress/wp-config-sample.php  /var/www/wordpress/wp-config.php
 # cd /var/www/wordpress/
 sed -i "s/database_name_here/$DB_NAME/" /var/www/wordpress/wp-config.php
 sed -i "s/username_here/$DB_USER/" /var/www/wordpress/wp-config.php
-sed -i "s/password_here/$DB_PASSWORD/" /var/www/wordpress/wp-config.php
+sed -i "s/password_here/$DB_PASS/" /var/www/wordpress/wp-config.php
 sed -i "s/localhost/$DB_HOST/"   /var/www/wordpress/wp-config.php
 
 cd /var/www/wordpress/

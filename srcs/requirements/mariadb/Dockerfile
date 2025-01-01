@@ -10,7 +10,7 @@ COPY conf/50-server.cnf  /etc/mysql/mariadb.conf.d/50-server.cnf
 
 COPY tools/DBSetUp.sh .
 
-RUN chmod 775 DBSetUp.sh
+RUN chmod +x DBSetUp.sh
 
 EXPOSE 3306
 

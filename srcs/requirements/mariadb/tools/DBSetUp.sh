@@ -13,3 +13,5 @@ mariadb -e "FLUSH PRIVILEGES;"
 service  mysql stop
 
 mysqld_safe
+
+echo "done .\n"

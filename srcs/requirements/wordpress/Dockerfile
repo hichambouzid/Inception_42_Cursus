@@ -28,7 +28,7 @@ COPY conf/config.sh .
 
 # RUN chmod +x  config.sh
 
-# # RUN ./config.sh
+EXPOSE  9000
 
 CMD ["bash", "config.sh"]
 
