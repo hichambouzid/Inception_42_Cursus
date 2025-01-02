@@ -4,6 +4,7 @@ networks:
 
 services:
   mariadb:
+    container_name: mariadb
     build: ./requirements/mariadb/.
     init: true
     env_file:
@@ -14,7 +15,9 @@ services:
       - mariadb:/var/lib/mysql
     expose:
       - 3306
+    restart: always
   wordpress:
+    container_name:  wordpress
     build: ./requirements/wordpress/.
     init: true
     env_file:
@@ -24,10 +27,25 @@ services:
     networks:
       - inception
     volumes:
-      - wordPress:/var/www/wordPress
+      - wordPress:/var/www/html
     expose:
       - 9000
-
+    restart: always
+  nginx:
+      container_name: nginx
+      build: ./requirements/nginx/.
+      init: true
+      env_file:
+        - .env
+      ports:
+        - "443:443"
+      depends_on:
+        - wordpress
+      networks:
+        - inception
+      volumes:
+        - wordPress:/var/www/html
+      restart: always
 
 volumes:
   wordPress:

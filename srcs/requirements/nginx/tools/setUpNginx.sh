@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sleep 20
+
 apt update && apt upgrade -y && apt install -y \
 					vim			\
 					curl		\

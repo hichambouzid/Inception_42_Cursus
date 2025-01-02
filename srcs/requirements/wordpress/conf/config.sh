@@ -1,49 +1,42 @@
-#!bin/bash
+#!/bin/bash
 
-
-#Running wordpess as root
-# wp core download  --allow-root
-
-# wp-config-sample.php it's just a template provided by wordpess .
+# Wait for MariaDB to be ready
 sleep 10
-mv   /var/www/wordpress/wp-config-sample.php  /var/www/wordpress/wp-config.php
 
-cd /var/www/wordpress/
-sed -i "s/database_name_here/$DB_NAME/" /var/www/wordpress/wp-config.php
-sed -i "s/username_here/$DB_USER/" /var/www/wordpress/wp-config.php
-sed -i "s/password_here/$DB_PASS/" /var/www/wordpress/wp-config.php
-sed -i "s/localhost/$DB_HOST/"   /var/www/wordpress/wp-config.php
+# Download WordPress core files
+wp core download --path=/var/www/html --allow-root
 
-cd /var/www/wordpress/
+# Move and configure wp-config.php
+mv /var/www/html/wp-config-sample.php /var/www/html/wp-config.php
+sed -i "s/database_name_here/$DB_NAME/" /var/www/html/wp-config.php
+sed -i "s/username_here/$DB_USER/" /var/www/html/wp-config.php
+sed -i "s/password_here/$DB_PASS/" /var/www/html/wp-config.php
+sed -i "s/localhost/$DB_HOST/" /var/www/html/wp-config.php
 
-#set up wordpress web sit admin
+# Install WordPress
 wp core install \
-    --url=$URL_WP \
-    --title=$TT_WP \
+    --url=$URL_USER \
+    --title="$TT_WP" \
     --admin_user=$AD_USER \
-    --admin_password=$AD_PASSWORD\
+    --admin_password=$AD_PASSWORD \
     --admin_email=$AD_EMAIL \
+    --path=/var/www/html \
     --allow-root
 
-#creat a new wordpress user
-
+# Create an additional WordPress user
 wp user create \
     $WP_USER \
     $WP_EMAIL \
     --role=author \
     --user_pass=$WP_PASSWORD \
+    --path=/var/www/html \
     --allow-root
 
-# install theme to use in wordpress (genaratepress or astra .....)
-# wp theme install \
-#     generatepress \
-#     --allow-root
+# wp theme install astra --activate --allow-root
 
-cd /
-
-#there to ways to make fpm listen to upcoming request
-
-echo "listen = 9000" >> /etc/php/7.3/fpm/php-fpm.conf
+# Configure PHP-FPM to listen on port 9000
+sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/' /etc/php/7.3/fpm/pool.d/www.conf
 mkdir -p /run/php
 
+# Start PHP-FPM in the foreground
 php-fpm7.3 -F
