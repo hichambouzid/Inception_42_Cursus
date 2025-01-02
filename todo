@@ -3,3 +3,6 @@ read more about volumes .
 
 running every commmand in in the step of setuping mariadb to check where is the problem .
 
+sed -i 's/listen = 127.0.0.1:9000/listen = wordpress:9000/g' >> /etc/php/7.3/fpm/pool.d/www.conf
+
+stabilish connection between wordpress and data base 
