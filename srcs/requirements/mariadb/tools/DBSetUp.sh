@@ -1,6 +1,8 @@
 #!/bin/bash
 
 service mysql start
+sleep 1
+
 
 chown -R mysql:mysql /run/mysqld
 

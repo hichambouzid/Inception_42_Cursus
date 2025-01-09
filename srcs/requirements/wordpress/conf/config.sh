@@ -32,9 +32,19 @@ wp user create \
     --path=/var/www/html \
     --allow-root
 
+#install redis object cache
+wp plugin install redis-cache --activate --path=/var/www/html --allow-root
+wp config set WP_REDIS_HOST "127.0.0.1" --type=constant --path=/var/www/html --allow-root
+wp config set WP_REDIS_PORT 6379 --type=constant --path=/var/www/html --allow-root
+service redis-cli restart
+# checking if redis-server work proprly .
+redis-cli ping
+wp redis enable --path=/var/www/html --allow-root
+wp redis status --path=/var/www/html --allow-root
 # wp theme install astra --activate --allow-root
 
 # Configure PHP-FPM to listen on port 9000
+# sed -i "s/bind 127.0.0.1 ::1/bind 0.0.0.0/" /etc/redis/redis.conf
 sed -i 's/listen = \/run\/php\/php7.3-fpm.sock/listen = 9000/' /etc/php/7.3/fpm/pool.d/www.conf
 mkdir -p /run/php
 

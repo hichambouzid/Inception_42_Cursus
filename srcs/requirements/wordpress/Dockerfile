@@ -8,7 +8,9 @@ RUN apt update -y && apt upgrade -y && apt install -y \
 			php7.3-mysql \
 			php-fpm \
 			mariadb-client \
-			unzip
+			unzip \
+			redis-server \
+			php7.3-redis
 
 RUN wget https://wordpress.org/latest.zip -P /var/www/
 
