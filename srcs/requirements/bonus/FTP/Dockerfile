@@ -1,6 +1,12 @@
 FROM debian:buster
 
 RUN apt update -y && apt upgrade -y \
-	systemd \
-	vsftpd 
+	vim \
+	vsftpd \
+	ftp \
+	curl \
+	sudo
 
+COPY tools/* .
+
+CMD ["bash", "setUpFtp.sh"]
