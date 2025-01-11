@@ -46,7 +46,22 @@ services:
       volumes:
         - wordPress:/var/www/html
       restart: always
-
+  ftp:
+      container_name: ftp
+      build: ./requirements/bonus/FTP/
+      init: true
+      env_file:
+        - .env
+      depends_on:
+        - wordpress
+      ports:
+        - "21:21"
+        - "40000-40010:40000-40010"
+      networks:
+        - inception
+      volumes:
+        - wordPress:/var/www/html
+      restart: always
 volumes:
   wordPress:
   mariadb:
