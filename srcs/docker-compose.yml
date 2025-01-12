@@ -3,6 +3,13 @@ networks:
     driver: bridge
 
 services:
+  redis:
+    container_name: redis
+    build: ./requirements//bonus/redis-cache/.
+    init: true
+    networks:
+      - inception
+    restart: always
   mariadb:
     container_name: mariadb
     build: ./requirements/mariadb/.
@@ -24,6 +31,7 @@ services:
       - .env
     depends_on:
       - mariadb
+      - redis
     networks:
       - inception
     volumes:
@@ -62,6 +70,14 @@ services:
       volumes:
         - wordPress:/var/www/html
       restart: always
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer/.
+    init: true
+    ports:
+      - "8080:8080"
+    networks:
+      - inception
 volumes:
   wordPress:
   mariadb:
