@@ -40,6 +40,7 @@ wp config set WP_REDIS_PORT 6379 --type=constant --raw --path=/var/www/html --al
 #redis-cli ping
 # service redis-cli restart
 wp redis enable --path=/var/www/html --allow-root
+ wp theme install twentysixteen --activate  --path=/var/www/html --allow-root
 # wp redis status --path=/var/www/html --allow-root
 # wp theme install astra --activate --allow-root
 

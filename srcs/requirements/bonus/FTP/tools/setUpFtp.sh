@@ -14,8 +14,8 @@ echo "pasv_min_port=40000" >> /etc/vsftpd.conf
 echo "pasv_max_port=40010" >> /etc/vsftpd.conf
 echo "local_root=/home/hibouzid" >> /etc/vsftpd.conf
 
-useradd -m -d /home/hibouzid "hibouzid"
-echo "hibouzid:hibouzid" | chpasswd
+useradd -m -d /home/${ftp_user} $ftp_user
+echo $ftp_user:$ftp_passwd | chpasswd
 sleep 1
 
 service vsftpd stop
