@@ -5,7 +5,7 @@ networks:
 services:
   redis:
     container_name: redis
-    build: ./requirements//bonus/redis-cache/.
+    build: ./requirements/bonus/redis-cache/.
     init: true
     networks:
       - inception
@@ -72,7 +72,7 @@ services:
       restart: always
   adminer:
     container_name: adminer
-    build: ./requirements/bonus/adminer/.
+    build: ./requirements/bonus/Adminer/.
     init: true
     ports:
       - "8080:8080"
